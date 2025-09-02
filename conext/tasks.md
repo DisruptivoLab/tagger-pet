@@ -5,6 +5,7 @@ Este documento desglosa las historias de usuario en tareas técnicas pequeñas (
 Leyenda estado: `[ ] pendiente`, `[x] hecho`, `[-] no aplica`, `[~] en progreso`.
 
 ## Supuestos y decisiones previas (ajustables)
+
 - Autenticación: se decidirá entre Auth0 y AWS Cognito antes de M1.
 - ORM: **Prisma** elegido (por velocidad, DX y tipos). Para PostGIS usaremos migraciones SQL y `$queryRaw` en consultas espaciales.
 - Push: se evaluará FCM vs OneSignal en M2 (email primero; push y WhatsApp después).
@@ -15,39 +16,47 @@ Leyenda estado: `[ ] pendiente`, `[x] hecho`, `[-] no aplica`, `[~] en progreso`
 ## Hito M0 — Fundaciones (infra, diseño, i18n, base de datos)
 
 ### M0.1 Repo, tooling y CI/CD
+
 - [x] Crear monorepo (Turborepo) con apps `web` (Next.js) y paquete `@tagger/shared`. (API NestJS se añade en M0.6)
 - [x] Configurar ESLint + Prettier + EditorConfig en raíz.
-- [ ] Añadir Husky + lint-staged para pre-commit (lint y format).
-- [ ] Configurar CI (GitHub Actions): lint, build y tests para web y api.
+- [x] Añadir Husky + lint-staged para pre-commit (lint y format).
+- [~] Configurar CI (GitHub Actions): lint, build y tests para web y api. (web: lint/typecheck/build listos; tests y API pendientes)
 - [ ] Conectar `web` a Vercel (preview por PR y prod en main).
 
 DoD M0.1:
+
 - Scripts `lint`, `format` funcionando localmente.
 - `npm run dev` arranca `apps/web` y `packages/shared` sin errores.
 
 ### M0.2 Variables de entorno y secretos
+
 - [x] Definir `.env.example` para web y api (DB_URL, AWS, AUTH, EMAIL, etc.).
 - [ ] Documentar manejo de secretos (Vercel env, GitHub Secrets, AWS SSM).
 
 ### M0.3 Diseño y theming (design.md)
+
 - [x] Crear `apps/web/app/theme.css` con tokens base de M3 (colores/tipo/shape) según `design.md`.
-- [ ] Implementar selector de tema (`data-theme`) en layout raíz con Claro/Oscuro/Automático.
+- [x] Implementar selector de tema (`data-theme`) en layout raíz con Claro/Oscuro/Automático.
 - [ ] Añadir verificación de contraste (WCAG AA) en diseño de componentes críticos (botón primario, texto cuerpo sobre surface).
 
 DoD M0.3:
+
 - Tema se ajusta a preferencia del sistema y toggle manual visible en la UI.
 - Contraste AA validado en botón primario y texto principal.
 
 ### M0.4 Internacionalización (i18n)
-- [ ] Adoptar `next-intl` para Next.js.
-- [ ] Estructurar claves por dominio (`modulo.pantalla.accion`).
-- [ ] Cargar locales ES (fallback) y EN; detección por navegador; persistencia por cuenta cuando el usuario elija.
+
+- [x] Adoptar `next-intl` para Next.js.
+- [x] Estructurar claves por dominio (`modulo.pantalla.accion`).
+- [~] Cargar locales ES (fallback) y EN; detección por navegador; persistencia por cuenta cuando el usuario elija. (detección OK; persistencia pendiente)
 
 ### M0.5 Accesibilidad base (a11y)
-- [ ] Activar eslint-plugin-jsx-a11y en `web`.
+
+- [x] Activar eslint-plugin-jsx-a11y en `web`.
 - [ ] Crear pauta de focus visible y navegación por teclado en layout base.
 
 ### M0.DB Diseño y construcción de Base de Datos (PostgreSQL + PostGIS)
+
 - [ ] Provisionamiento local: contenedor Postgres 16 con PostGIS (docker-compose) y usuario/DB del proyecto.
 - [ ] Provisionamiento cloud: RDS PostgreSQL con PostGIS habilitado (Parameter Group) y backups automáticos.
 - [ ] Extensiones: activar `postgis` y `pg_trgm` en todos los entornos.
@@ -84,12 +93,14 @@ DoD M0.3:
 - [ ] Pruebas espaciales: `EXPLAIN ANALYZE` de consultas con `ST_DWithin` y verificación de uso de índice GIST.
 
 ### M0.6 Backend base (API NestJS)
+
 - [ ] Crear proyecto NestJS modular: `auth`, `users`, `pets`, `files`, `devices`, `medical`, `reminders`.
 - [ ] **Prisma**: inicializar cliente, configurar conexión, generar tipos y repositorios básicos.
 - [ ] Consumir el esquema definido en M0.DB (modelos/tablas/índices) y exponer repositorios/servicios.
 - [ ] Semillas mínimas (dev): usuario demo y mascota demo.
 
 ### M0.7 Integraciones cloud
+
 - [ ] S3: bucket para Casillero Digital; política y CORS mínimos.
 - [ ] SES: dominio verificado y plantilla de emails transaccionales.
 
@@ -98,17 +109,20 @@ DoD M0.3:
 ## Hito M1 — Módulo 1: Gestión de Perfiles (HU1.x)
 
 ### M1.1 Autenticación y cuenta (HU1.1.1–HU1.1.4)
+
 - [ ] Decidir proveedor (Auth0 vs Cognito) y crear tenant/user-pool.
 - [ ] Flujo email+password: registro, login, logout; persistencia de sesión segura.
 - [ ] Endpoints `GET/PUT /me` para editar perfil (nombre, teléfono).
 - [ ] UI: pantallas Registro, Login, Perfil; validaciones inline y mensajes simples.
 
 ### M1.2 Mascotas (HU1.2.x)
+
 - [ ] API: CRUD `pets` (con ownership por `userId`).
 - [ ] Listado con búsqueda por nombre/alias; filtros por especie/sexo/estado; orden por nombre/edad.
 - [ ] UI: Lista y Detalle de Mascota; estados vacíos con atajos.
 
 ### M1.3 Casillero Digital (HU1.3.x)
+
 - [ ] API: presigned URLs S3 (upload/download), metadatos (nombre/descripción), borrado lógico.
 - [ ] UI: galería por mascota; subir/renombrar/eliminar; filtros por tipo y orden por fecha; búsqueda por nombre/descr.
 - [ ] Seguridad: validar acceso a archivos por dueño/mascota.
@@ -118,6 +132,7 @@ DoD M0.3:
 ## Hito M2 — Salud y Bienestar (Historial + Recordatorios) (HU2.x)
 
 ### M2.1 Historial Clínico (HU2.1.x)
+
 - [ ] Modelo y endpoints: crear/listar/leer entradas con atribución (profesional/negocio opcional) y tipo.
 - [ ] Asociar archivos del Casillero a entradas; subir desde ficha de detalle.
 - [ ] Filtros por tipo y rango de fechas; búsqueda por texto.
@@ -127,6 +142,7 @@ DoD M0.3:
 - [ ] Gráficos básicos: evolución de peso y vacunas al día vs pendientes.
 
 ### M2.2 Recordatorios (HU2.2.x)
+
 - [ ] Modelo y endpoints: crear/listar/actualizar completar.
 - [ ] Preferencias de notificación por usuario: push/email/WhatsApp.
 - [ ] Planificación: job scheduler (cron) para envíos; primero email (SES); luego push (FCM/OneSignal) y evaluar WhatsApp.
@@ -138,11 +154,13 @@ DoD M0.3:
 ## Hito M3 — Tagger Alert (Dispositivos y Alertas) (HU3.x)
 
 ### M3.1 Dispositivos (HU3.1.x)
+
 - [ ] Modelo y endpoints `devices`: tipos (QR, microchip), alias, estado, principal, reemplazo y transferencia intra-cuenta.
 - [ ] Regla: microchip único por mascota con flujo de reemplazo conservando histórico.
 - [ ] UI: listado por mascota con tipo/alias/estado/última lectura; set principal; activar/desactivar; marcar perdido.
 
 ### M3.2 Lecturas y alertas (HU3.2.x)
+
 - [ ] Endpoint público de escaneo (QR): registrar `device_read` con geo aproximada.
 - [ ] Notificación multicanal al dueño al escaneo (email primero; push/WhatsApp después).
 - [ ] UI: historial de lecturas por mascota y por dispositivo, con mapa (Leaflet) y filtros por fecha/origen.
@@ -153,6 +171,7 @@ DoD M0.3:
 ---
 
 ## Hito M4 — Social y Aliados (HU4.x, HU5.x)
+
 - [ ] Compartir perfil público de mascota (solo lectura) con alcance configurable.
 - [ ] Listado de Aliados vinculados y gestión de solicitudes (aprobar/rechazar) por mascota.
 - [ ] Revocar vínculo con Aliado por mascota.
@@ -162,23 +181,27 @@ DoD M0.3:
 ## Hito M5 — Configuración, A11y, Seguridad y Datos (HU6.x, HU7.x, HU8.x)
 
 ### M5.1 Configuración (HU6.x)
+
 - [ ] Tema Claro/Oscuro/Automático con persistencia por cuenta y recordatorio de sistema.
 - [ ] Idioma y zona horaria; autodetección al primer uso; cambio manual con persistencia.
 - [ ] Sesiones activas: listar y cerrar sesión remota.
 - [ ] Descargar mis datos y eliminar cuenta (GDPR-like) con confirmaciones.
 
 ### M5.2 A11y e i18n (HU7.x)
+
 - [ ] Lectores de pantalla: roles y labels, foco visible consistente.
 - [ ] Tamaños de fuente del sistema y modo alto contraste.
 - [ ] Preparar RTL (propiedades lógicas CSS, espejado donde aplique).
 
 ### M5.3 Seguridad y privacidad (HU8.x)
+
 - [ ] Restablecer contraseña vía email (flujo proveedor auth elegido).
 - [ ] Rate limiting y audit logs en endpoints sensibles (usar tablas `rate_limits` y `audit_logs`).
 
 ---
 
 ## Calidad y pruebas
+
 - [ ] Lint + typecheck en CI (web y api) verdes.
 - [ ] Pruebas unitarias backend (servicios y guards) y frontend (componentes y hooks críticos).
 - [ ] Pruebas de integración de API (auth, pets, files, medical, reminders, devices).
@@ -187,6 +210,7 @@ DoD M0.3:
 ---
 
 ## Mapeo rápido HU → entregables
+
 - HU1.1.x: auth básica + perfil (`/me`) + pantallas registro/login/perfil.
 - HU1.2.x: CRUD pets + listado con buscar/filtrar/ordenar.
 - HU1.3.x: Casillero con S3 (presigned) + filtros/orden/búsqueda.
@@ -203,6 +227,7 @@ DoD M0.3:
 ---
 
 ## Notas de implementación
+
 - Mobile-first: priorizar rendimiento e interacción táctil; escritorio como mejora progresiva.
 - Tokens como única fuente de verdad visual. No hardcodear colores ni textos.
 - Lógica compartida sin dependencias del DOM para futura reutilización en React Native.

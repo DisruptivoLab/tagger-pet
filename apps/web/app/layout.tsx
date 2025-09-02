@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-
-import en from '../messages/en.json';
-import es from '../messages/es.json';
+import { getLocale, getMessages } from 'next-intl/server';
 
 import './globals.css';
 import './theme.css';
@@ -13,21 +11,13 @@ export const metadata: Metadata = {
   description: 'Centraliza y simplifica el cuidado de tus mascotas.',
 };
 
-function getBrowserLocale(): 'es' | 'en' {
-  if (typeof navigator !== 'undefined') {
-    const lang = navigator.language?.toLowerCase() || 'es';
-    return lang.startsWith('en') ? 'en' : 'es';
-  }
-  return 'es';
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = getBrowserLocale();
-  const messages = locale === 'en' ? en : es;
+  const locale = await getLocale();
+  const messages = await getMessages();
 
   return (
     <html lang={locale} data-theme="auto">

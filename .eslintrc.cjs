@@ -31,6 +31,13 @@ module.exports = {
         alphabetize: { order: 'asc', caseInsensitive: true }
       }
     ],
+    // next-intl expone subrutas (p.ej. 'next-intl/server') vía package exports,
+    // que a veces el resolver de eslint-plugin-import no detecta.
+    // Ignoramos esos subpaths para evitar falsos positivos.
+    'import/no-unresolved': [
+      'error',
+      { ignore: ['^next-intl/.*$'] }
+    ],
     'react/react-in-jsx-scope': 'off'
   },
   ignorePatterns: ['**/dist/**', '**/build/**', '**/.next/**', 'node_modules/**']

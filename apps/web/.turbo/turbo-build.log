@@ -1,0 +1,31 @@
+
+> @tagger/web@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.32
+  - Experiments (use with caution):
+    · typedRoutes
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ƒ /                                    1.25 kB        88.3 kB
+└ ƒ /_not-found                          873 B          87.9 kB
++ First Load JS shared by all            87.1 kB
+  ├ chunks/1dd3208c-d2aacf80942c1fc7.js  53.6 kB
+  ├ chunks/528-9b00454cdd6a9676.js       31.6 kB
+  └ other shared chunks (total)          1.86 kB
+
+
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,4 +1,6 @@
 {
-  "home.title": "Tagger Pet",
-  "home.welcome": "Bienvenido. Este es el esqueleto inicial de la app web (Next.js)."
+  "home": {
+    "title": "Tagger Pet",
+    "welcome": "Bienvenido. Este es el esqueleto inicial de la app web (Next.js)."
+  }
 }

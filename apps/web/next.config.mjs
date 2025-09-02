@@ -1,3 +1,10 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+// Point to the i18n request config
+const withNextIntl = createNextIntlPlugin({
+  requestConfig: './i18n/request.ts'
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -6,4 +13,4 @@ const nextConfig = {
   }
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

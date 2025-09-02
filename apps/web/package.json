@@ -9,6 +9,11 @@
     "start": "next start -p 3000",
     "lint": "eslint . --ext .ts,.tsx"
   },
+  "eslintConfig": {
+    "extends": [
+      "next/core-web-vitals"
+    ]
+  },
   "dependencies": {
     "next": "^14.2.5",
     "next-intl": "^4.3.5",
