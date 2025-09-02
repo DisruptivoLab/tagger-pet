@@ -4,7 +4,7 @@ import { getLocale, getMessages } from 'next-intl/server';
 
 import './globals.css';
 import './theme.css';
-import ThemeToggle from './components/theme-toggle';
+import ThemeToggle from '../components/ThemeToggle';
 
 export const metadata: Metadata = {
   title: 'Tagger Pet',
