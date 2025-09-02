@@ -1,5 +1,7 @@
 # Tagger Pet
 
+[![CI](https://github.com/DisruptivoLab/tagger-pet/actions/workflows/ci.yml/badge.svg)](https://github.com/DisruptivoLab/tagger-pet/actions/workflows/ci.yml)
+
 Plataforma unificada para el cuidado de mascotas: dos frontends (App Dueños y Plataforma de Gestión) sobre un backend único con base de datos global.
 
 ## 📚 Documentación principal
@@ -23,7 +25,7 @@ Plataforma unificada para el cuidado de mascotas: dos frontends (App Dueños y P
   - `web/` — Next.js (Material 3)
   - `api/` — NestJS (Prisma + PostgreSQL/PostGIS)
 - `packages/` — (previsto) Paquetes compartidos (`@tagger/shared`)
-- `.github/` — (previsto) Workflows de CI/CD
+- `.github/` — Workflows de CI/CD
 
 ## 🚀 Próximos pasos sugeridos
 
