@@ -16,6 +16,7 @@
     "typecheck": "tsc -p packages/shared/tsconfig.build.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "contrast": "node scripts/contrast-check.mjs",
     "prepare": "husky install"
   },
   "devDependencies": {
