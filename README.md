@@ -11,6 +11,7 @@ Plataforma unificada para el cuidado de mascotas: dos frontends (App Dueños y P
 - Reglas de trabajo: [conext/rules.md](conext/rules.md)
 - Diseño y theming (M3): [conext/design.md](conext/design.md)
 - Tareas y roadmap: [conext/tasks.md](conext/tasks.md)
+- Despliegue en Vercel: [docs/vercel.md](docs/vercel.md)
 - Historias de usuario (App Dueños): [conext/stories/app.md](conext/stories/app.md)
 - Historias de usuario (Plataforma): [conext/stories/platform.md](conext/stories/platform.md)
 
@@ -29,11 +30,15 @@ Plataforma unificada para el cuidado de mascotas: dos frontends (App Dueños y P
 
 ## 🚀 Próximos pasos sugeridos
 
-1) M0.1 — Monorepo y tooling: Turborepo/Nx, apps `web`/`api`, `@tagger/shared`, ESLint/Prettier, CI básico.
-2) M0.DB — PostgreSQL + PostGIS con Prisma (migraciones y seeds).
-3) Decidir proveedor de autenticación (Auth0 vs Cognito) para M1.
+1. M0.1 — Monorepo y tooling: Turborepo/Nx, apps `web`/`api`, `@tagger/shared`, ESLint/Prettier, CI básico.
+2. M0.DB — PostgreSQL + PostGIS con Prisma (migraciones y seeds).
+3. Decidir proveedor de autenticación (Auth0 vs Cognito) para M1.
 
 Consulta los detalles en [conext/tasks.md](conext/tasks.md).
+
+## 🌐 Deploy
+
+Producción (Vercel): https://tagger-pet-web.vercel.app/
 
 ## 🤝 Contribuir
 

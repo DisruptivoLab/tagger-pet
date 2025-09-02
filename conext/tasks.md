@@ -21,7 +21,7 @@ Leyenda estado: `[ ] pendiente`, `[x] hecho`, `[-] no aplica`, `[~] en progreso`
 - [x] Configurar ESLint + Prettier + EditorConfig en raíz.
 - [x] Añadir Husky + lint-staged para pre-commit (lint y format).
 - [~] Configurar CI (GitHub Actions): lint, build y tests para web y api. (web: lint/typecheck/build listos; tests y API pendientes)
-- [ ] Conectar `web` a Vercel (preview por PR y prod en main).
+- [x] Conectar `web` a Vercel (preview por PR y prod en main). Ver guía: docs/vercel.md
 
 DoD M0.1:
 

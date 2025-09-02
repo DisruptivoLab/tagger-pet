@@ -23,13 +23,15 @@ export default async function RootLayout({
     <html lang={locale} data-theme="auto">
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
+          {/* Enlace de salto para accesibilidad (navegación por teclado) */}
+          <a href="#content" className="skip-link">Saltar al contenido</a>
           <header className="app-header">
             <div className="container">
               <strong>Tagger Pet</strong>
               <ThemeToggle />
             </div>
           </header>
-          <main className="container">{children}</main>
+          <main id="content" className="container">{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>
